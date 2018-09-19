@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>FreahVotes</name>
+	<name>FreshVotes</name>
 	<description>Fresh Votes App</description>
 
 	<parent>
