@@ -11,7 +11,15 @@ public class Login {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginView() {
 		return "login";
-//		TEST
+
+}
+
+
+	
+//	added this to redirect to homepage after successful login. I also needed to update the websecurityconfiguration to ensure the redirect worked. You cannot simple use the action value in html when using spring security
+	@RequestMapping(value="/home", method=RequestMethod.POST)
+	public String homePage() {
+		return "homepage";
 
 }
 }
