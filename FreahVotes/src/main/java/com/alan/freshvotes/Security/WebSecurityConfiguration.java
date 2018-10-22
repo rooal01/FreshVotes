@@ -28,7 +28,8 @@ auth.inMemoryAuthentication()
 
 @Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http
+//		http.csrf().disable() - This was the original setting. We now enable CSRF protection(Default setting) into all PATCH, POST, PUT, and DELETE – not GET operations so it can be used safely
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.anyRequest().hasRole("USER")
