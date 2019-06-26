@@ -19,8 +19,7 @@ import com.alan.freshvotes.Security.Authority;
 @Table(name="users")
 public class User {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private Integer id;
 	private String username;
 	private String name;
@@ -36,9 +35,13 @@ public class User {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
