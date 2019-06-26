@@ -27,7 +27,7 @@ public class User {
 	private String password;
 	
 
-	private Set<Authority> authorities = new HashSet<>();
+	public Set<Authority> authorities = new HashSet<>();
 	
 	@OneToMany(cascade=javax.persistence.CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="user")
 	public Set<Authority> getAuthorities() {
