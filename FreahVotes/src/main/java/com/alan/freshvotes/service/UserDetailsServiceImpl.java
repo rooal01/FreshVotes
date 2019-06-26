@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.alan.freshvotes.Security.CustomSecurityUser;
 import com.alan.freshvotes.domain.User;
 import com.alan.freshvotes.repositories.UserRepository;
 
@@ -21,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		if (user == null)
 			throw new UsernameNotFoundException("Invalid Username and Password");
-		return null;
+		return new CustomSecurityUser(user);
 	}
 
 }
