@@ -26,11 +26,11 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	auth.userDetailsService(userDetailsService)
 	.passwordEncoder(getPasswordEncoder());
 //	Uncomment the rest of this to use in memory user
-//auth.inMemoryAuthentication()
-//.passwordEncoder(getPasswordEncoder())
-//.withUser("alan")
-//.password(getPasswordEncoder().encode("Password"))
-//.roles("USER");
+auth.inMemoryAuthentication()
+.passwordEncoder(getPasswordEncoder())
+.withUser("alan")
+.password(getPasswordEncoder().encode("Password"))
+.roles("USER");
 }
 
 @Override
