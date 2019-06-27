@@ -41,9 +41,9 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.anyRequest().hasRole("USER")
-		.and().formLogin().loginPage("login")
+		.and().formLogin().loginPage("/login")
 //		Added to redirect to homepage after successful login.
-		.permitAll().successForwardUrl("home")
+		.permitAll().successForwardUrl("/home")
 		
 		.and()
 		.logout().logoutUrl("logout").permitAll()
