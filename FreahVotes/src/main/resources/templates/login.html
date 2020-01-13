@@ -2,6 +2,18 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <Title>FreshVotes Login Page</Title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  $(function () {
+	  $("#createaccount").click(function () {
+		  window.location.href = "register";
+	  });
+	  
+  });
+  </script>
 </head>
 <body>
 <form action="./login" method="POST">
@@ -33,6 +45,7 @@
         </p>
         <div>
             <button type="submit" class="btn">Log in</button>
+            <button type="button" id="createaccount" class="btn">Create Account</button>
         </div>
     </fieldset>
  </form>

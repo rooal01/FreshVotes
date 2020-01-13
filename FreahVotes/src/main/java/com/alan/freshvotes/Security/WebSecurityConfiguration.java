@@ -39,7 +39,7 @@ auth.inMemoryAuthentication()
 //		http.csrf().disable() - This was the original setting. We now enable CSRF protection(Default setting) into all PATCH, POST, PUT, and DELETE – not GET operations so it can be used safely
 //		Notice the extra hidden csrf values in the login/logout POST methods. These need to be passed to ensure no redirection is happening.
 		.authorizeRequests()
-		.antMatchers("/").permitAll()
+		.antMatchers("/").permitAll().antMatchers("/register").permitAll()
 		.anyRequest().hasRole("USER")
 		.and().formLogin().loginPage("/login")
 //		Added to redirect to homepage after successful login.
