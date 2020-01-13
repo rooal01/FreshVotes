@@ -8,13 +8,14 @@ import javax.persistence.Id;
 @Entity
 public class Feature {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Integer id;
 	private String title;
 	private String description;
 	private String status;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
