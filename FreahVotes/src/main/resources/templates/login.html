@@ -4,7 +4,7 @@
 <Title>FreshVotes Login Page</Title>
 </head>
 <body>
-<form action="/login" method="POST">
+<form action="./login" method="POST">
 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <fieldset>
         <legend>Please Login</legend>

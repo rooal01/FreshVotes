@@ -46,7 +46,7 @@ auth.inMemoryAuthentication()
 		.permitAll().successForwardUrl("/home")
 		
 		.and()
-		.logout().logoutUrl("logout").permitAll()
+		.logout().logoutUrl("/logout").permitAll().logoutSuccessUrl("/")
 		;
 	}
 
