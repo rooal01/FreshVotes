@@ -18,10 +18,10 @@ public class UserService {
 	//becuase this is a bean we can autowire it
 	
 //No idea why this will not autowire. Test when complete	
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	
 	public User save(User user){

@@ -9,7 +9,8 @@ public class DashboardController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String rootView() {
-		return "index";
+		//changed from index and login should be the first page
+		return "login";
 //		TEST
 	}
 
