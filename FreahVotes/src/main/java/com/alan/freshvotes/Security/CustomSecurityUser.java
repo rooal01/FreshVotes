@@ -30,19 +30,19 @@ public class CustomSecurityUser extends User implements UserDetails{
 	@Override
 	public Set<Authority> getAuthorities() {
 
-		return this.getAuthorities();
+		return super.getAuthorities();
 	}
 	
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return this.getPassword();
+		return super.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 		// becuase we have extended the user class (Parent Class) we can now use this.getUsername/password and so on from the user class
-		return this.getUsername();
+		return super.getUsername();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class CustomSecurityUser extends User implements UserDetails{
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
