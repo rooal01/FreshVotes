@@ -12,7 +12,7 @@ import com.alan.freshvotes.domain.User;
 import com.alan.freshvotes.service.UserService;
 
 @Controller
-public class Login {
+public class LoginController {
 
 	@Autowired
 	private UserService userService;
@@ -44,9 +44,9 @@ public class Login {
 }
 	
 //	added this to redirect to homepage after successful login. I also needed to update the websecurityconfiguration to ensure the redirect worked. You cannot simple use the action value in html when using spring security
-	@RequestMapping(value="/home", method=RequestMethod.POST)
+	@RequestMapping(value="/dashboard", method=RequestMethod.POST)
 	public String homePage() {
-		return "homepage";
+		return "redirect:dashboard";
 
 }
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+<title>Products</title>
+<body>
+<!--  So do not render this div if the product is null. not sure its needed -->
+	<div class="container" th:if="${product != null}">
+		<h1>Product</h1>
+		
+		<form action="" method="POST">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		<!-- We need to populate the product we return with a few additional fields to ensure we update the existing entry -->
+		<!-- You can see this getting populated using developer tools F12 -->
+		<input type="hidden" th:field="${product.id}">
+		<input type="hidden" th:field="${product.user.id}">
+
+		<div class="form-group row">
+			<Label for="name" class="col-12 col-lg-2 col-form-label">Name:</Label> 
+			<div class="col-12 col-lg-10">
+				<input type="text" class="form-control" th:field="${product.name}">
+			</div>
+		</div>
+		
+
+		<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" th:field="${product.published}">
+			<!-- we use publish1 because this is what thymeleaf sets the id to. you can see this in f12 -->
+			<label class="custom-control-label" for="published1">Publish</label>	
+			
+			<!--in this case the for in the label means when you click on the label it also clicks then box -->	
+		</div>
+		
+		
+<!-- 		<div th:text="|is product published: ${product.published} |"> -->
+<!-- 		This is the text which is replaced by the th:text settings -->
+<!-- 		</div> -->
+		
+		<div class="row">
+			<div class="col-6">
+				<button type="submit" class="btn btn-primary btn-lg">Save Product</button>
+			</div>
+		</div>
+		</form>
+
+	</div>
+</body>
+
+</head>
+</html>
