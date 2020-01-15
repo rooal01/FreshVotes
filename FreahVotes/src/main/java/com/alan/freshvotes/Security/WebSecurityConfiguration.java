@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 @Autowired	
+//Note because we have created a UserDetailsServiceImpl and annotated it with @Service it will use our implementation.
 private UserDetailsService userDetailsService;
 
 @Bean

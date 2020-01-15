@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Feature {
@@ -13,7 +14,17 @@ public class Feature {
 	private String title;
 	private String description;
 	private String status;
+	private Product product;
 	
+	
+	//This means many features can be mapped to one product
+	@ManyToOne
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {

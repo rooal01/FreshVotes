@@ -3,6 +3,7 @@ package com.alan.freshvotes.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,16 +23,27 @@ public class User {
 	private String name;
 	private String password;
 	private String email;
+	public Set<Authority> authorities = new HashSet<>();
+	public Set<Product> products = new HashSet<>();
+	
+	
+	//So here we do not delete the product information if the user is removed
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="user")
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 
 	public String getEmail() {
 		return email;
 	}
-
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Set<Authority> authorities = new HashSet<>();
 
 	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	public Set<Authority> getAuthorities() {
