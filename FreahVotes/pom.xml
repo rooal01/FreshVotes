@@ -74,6 +74,14 @@
     <scope>runtime</scope>
      </dependency>
      
+     <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
+<!--      needed this so we could use the sec:authorized in the header -->
+<dependency>
+    <groupId>org.thymeleaf.extras</groupId>
+    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+</dependency>
+     
+     
 	</dependencies>
 
 	<build>

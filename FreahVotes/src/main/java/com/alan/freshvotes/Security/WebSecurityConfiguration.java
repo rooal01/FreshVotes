@@ -41,7 +41,7 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		Notice the extra hidden csrf values in the login/logout POST methods. These need to be passed to ensure no redirection is happening.
 		.authorizeRequests()
 		.antMatchers("/").permitAll().antMatchers("/register")
-		.permitAll()
+		.permitAll().antMatchers("/images/**").permitAll()
 		.anyRequest().hasRole("USER")
 		.and().formLogin().loginPage("/login")
 //		Added to redirect to homepage after successful login.

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- the following can use any valid tag, it does not have to be script -->
+<script th:replace="fragments/header :: headerElement">
+// This stuff will be replaced by our fragment
+</script>
 <Title>FreshVotes Login Page</Title>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-  crossorigin="anonymous"></script>
   <script type="text/javascript">
   $(function () {
 	  $("#createaccount").click(function () {
@@ -18,6 +17,7 @@
 </head>
 <body>
 <div class="container">
+<div th:replace="fragments/header :: navbar"></div>
 	<div class="card"  style="margin-top: 1.56em;">
 		<div class="card-header"><h2>Please Login</h2></div>
 			<div class="card-body">

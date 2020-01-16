@@ -2,36 +2,42 @@
 
 <html xmlns:th="http://thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- the following can use any valid tag, it does not have to be script -->
+<script th:replace="fragments/header :: headerElement">
+// This stuff will be replaced by our fragment
+</script>
 <title>FreshVotes HomePage</title>
 <body>
+
 <div class="container" style="margin-top: 1.5em;">
+<div th:replace="fragments/header :: navbar"></div>
 	<div class="row">
 		<div class="col-8">
 			<h1>Dashboard</h1>
 		</div>
-			<div class="col-4">
-				<form action="./logout" method="post" class="float-right">
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-				<button type="submit" class="btn btn-primary btn-lg" >logout</button>
-				</form>
-			</div>
+<!-- 			<div class="col-4"> -->
+<!-- 				<form action="./logout" method="post" class="float-right"> -->
+<!-- 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
+<!-- 				<button type="submit" class="btn btn-primary btn-lg" >logout</button> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
 		</div>
-	
-		<div th:if="${products != null}">
-			<div class="row">
+		<div class="jumbotron">
+			<div th:if="${products != null}">
+				<div class="row" style="margin-top: -2em;">
+					<div class="col">
+					<h2>Products</h2>
+					</div>
+				</div>
+			
+			<div class="row" th:each="product : ${products}">
 				<div class="col">
-				<h1>All of your Products</h1>
+			<!-- here we use tleaf to create a dynamic href passing in the product id -->
+				<a th:href="@{/products/{productId}(productId=${product.id})}"  th:text="${product.name}"></a>
 				</div>
 			</div>
-		
-		<div class="row" th:each="product : ${products}">
-			<div class="col">
-		<!-- here we use tleaf to create a dynamic href passing in the product id -->
-			<a th:href="@{/products/{productId}(productId=${product.id})}"  th:text="${product.name}"></a>
-			</div>
+		   </div>
 		</div>
-	   </div>
 	
 	<div class="row">
 		<div class="col">

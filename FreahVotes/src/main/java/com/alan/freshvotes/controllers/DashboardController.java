@@ -32,7 +32,7 @@ public class DashboardController {
 		List<Product> products = productRepo.findByUser(user);
 		model.put("products",  products);
 		
-		return "dashboard";
+		return "/dashboard";
 
 	}
 
