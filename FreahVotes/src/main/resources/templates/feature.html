@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script th:replace="fragments/header :: headerElement">
+// This stuff will be replaced by our fragment
+</script>
+<title>Features</title>
+</head>
+<body>
+
+<div class="container">
+<div th:replace="fragments/header :: navbar"></div>
+	<div class="card"  style="margin-top: 1.56em;">
+				<div class="card-header">
+						<div class="row" >
+							<div class="col-8">
+								<h2>New Feature</h2>
+							</div>
+							<div class="col-4">
+								<span style="font-size: 1.2em;"class="badge badge-secondary float-right">TEST</span>
+							</div>
+						</div>
+		
+				</div>
+			<div class="card-body">
+					<form action="" method="POST">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+								<input type="hidden" th:field="${feature.id}">
+								<input type="hidden" th:field="${feature.product}">
+								<input type="hidden" th:field="${feature.status}">
+						<div class="form-group row">
+						<!--  the lg is for large screen, there are others the total columns used for the row schould be 12
+						so for a large screen it will use a column size of 2 for the label and 10 for the input
+						the col-12 become some type of default when not in large screen mode (lg) and it works out how to arrange things
+						so it will place the label above the input on a realy small screen.
+						-->
+						<label for="title" class="col-12 col-lg-2 col-form-label">Title:</label>
+						<div class="col-12 col-lg-10"> 
+						<input type="text" class="form-control" th:field="${feature.title}"/>
+						</div>
+						</div>
+						
+						<div class="form-group row">
+						<label for="description" class="col-12 col-lg-2 col-form-label">Description:</label> 
+						<div class="col-12 col-lg-10">
+						<textarea class="form-control" th:field="${feature.description}"></textarea>
+						</div>
+						</div>
+						
+		
+						<button id="cancel" class="btn btn-secondary btn-lg">Back</button>
+						<button type="submit" class="btn btn-primary float-right btn-lg">Submit Feature</button>
+					</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

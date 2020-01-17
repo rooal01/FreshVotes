@@ -1,11 +1,16 @@
 package com.alan.freshvotes.controllers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,17 +20,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.alan.freshvotes.domain.Feature;
 import com.alan.freshvotes.domain.Product;
 import com.alan.freshvotes.domain.User;
+import com.alan.freshvotes.repositories.FeatureRepository;
 import com.alan.freshvotes.repositories.ProductRepository;
 
 import javassist.NotFoundException;
 
 @Controller
 public class ProductController {
+	//adds logging
+	private Logger log = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
 	private ProductRepository productRepo;
+	
+	@Autowired
+	private FeatureRepository featureRepo;
 
 	//moving the following into dashboard so no need for the products.html page
 //	@GetMapping("/products")
@@ -60,6 +72,33 @@ public class ProductController {
 		
 				
 		return "product";
+	}
+	
+	@GetMapping("/pname/{productName}")
+	public String productUserView(@PathVariable String productName, ModelMap model){
+		//should probably move into a product service and feature service
+		if(productName != null) {
+			try {
+				//Might not need to decode as it looks like it is already decoded soming in.
+				productName = URLDecoder.decode(productName,  StandardCharsets.UTF_8.name());
+				Optional<Product> productOpt = productRepo.findByName(productName);
+				if(productOpt.isPresent()){
+					model.put("product", productOpt.get());
+					Product aa = productOpt.get();
+				}
+				//not needed as we can use the product.features value in the productUserView.html
+				//to get the list of a products features
+//				if(productOpt.isPresent()){
+//					Product product = productOpt.get();
+//					List<Feature> profeatures = featureRepo.findAllByProduct(product);
+//					model.put("features", profeatures);
+//				}
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				log.error("There was an error decoding a product URL", e);
+			}
+		}
+		return "productUserView";
 	}
 	
 	@PostMapping("/products/{productId}")

@@ -23,5 +23,7 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	//Creating our own method to get products by user
 	List<Product> findByUser(User user);
 	
+	Optional<Product> findByName(String name);
+	
 
 }
