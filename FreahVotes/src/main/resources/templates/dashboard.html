@@ -9,8 +9,9 @@
 <title>FreshVotes HomePage</title>
 <body>
 
-<div class="container" style="margin-top: 1.5em;">
 <div th:replace="fragments/header :: navbar"></div>
+<div class="container" style="margin-top: 1.5em;">
+
 	<div class="row">
 		<div class="col-8">
 			<h1>Dashboard</h1>
@@ -22,22 +23,33 @@
 <!-- 				</form> -->
 <!-- 			</div> -->
 		</div>
-		<div class="jumbotron">
-			<div th:if="${products != null}">
-				<div class="row" style="margin-top: -2em;">
-					<div class="col">
-					<h2>Products</h2>
-					</div>
-				</div>
-			
-			<div class="row" th:each="product : ${products}">
-				<div class="col">
-			<!-- here we use tleaf to create a dynamic href passing in the product id -->
-				<a th:href="@{/products/{productId}(productId=${product.id})}"  th:text="${product.name}"></a>
-				</div>
+		
+		
+		<div class="card" th:each="product : ${products}" style="margin: 1em 0em">
+			<div class="card-body">
+			<h3 class="card-title" th:text="${product.name}">product name</h3>
+			<h6 class="card-subtitle mb-2 text-muted" th:text="${product.published ? 'Published' : 'Not Publish'}">is it published</h6>
+			<a th:href="@{/products/{productId}(productId=${product.id})}"  class="btn btn-info" >Edit</a>
+			<a th:href="@{/pname/{productName}(productName=${product.name})}" class="btn btn-info"  >View Feature Requests</a>
 			</div>
-		   </div>
+		
 		</div>
+<!-- 		<div class="jumbotron"> -->
+<!-- 			<div th:if="${products != null}"> -->
+<!-- 				<div class="row" style="margin-top: -2em;"> -->
+<!-- 					<div class="col"> -->
+<!-- 					<h2>Products</h2> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			
+<!-- 			<div class="row" th:each="product : ${products}"> -->
+<!-- 				<div class="col"> -->
+<!-- here we use tleaf to create a dynamic href passing in the product id -->
+<!-- 				<a th:href="@{/products/{productId}(productId=${product.id})}"  th:text="${product.name}"></a> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		   </div> -->
+<!-- 		</div> -->
 	
 	<div class="row">
 		<div class="col">

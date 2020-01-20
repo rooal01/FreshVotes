@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class User {
 	private String email;
 	public Set<Authority> authorities = new HashSet<>();
 	public Set<Product> products = new HashSet<>();
+	private Set<Feature> features = new HashSet<>();
 	
 	
 	//So here we do not delete the product information if the user is removed
@@ -36,7 +38,7 @@ public class User {
 	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
-
+	@Column(unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -63,7 +65,7 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	@Column(unique = true)
 	public String getUsername() {
 		return username;
 	}
@@ -92,6 +94,15 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", name=" + name + ", password=" + password + ", email="
 				+ email + ", authorities=" + authorities + "]";
+	}
+	//persist, do not delete the user features when the user is deleted.
+	@OneToMany(cascade = javax.persistence.CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
+	public Set<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(Set<Feature> features) {
+		this.features = features;
 	}
 
 

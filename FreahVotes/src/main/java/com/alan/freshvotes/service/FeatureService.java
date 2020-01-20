@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alan.freshvotes.domain.Feature;
 import com.alan.freshvotes.domain.Product;
+import com.alan.freshvotes.domain.User;
 import com.alan.freshvotes.repositories.FeatureRepository;
 import com.alan.freshvotes.repositories.ProductRepository;
 
@@ -19,7 +20,7 @@ public class FeatureService {
 	@Autowired
 	private FeatureRepository featureRepo;
 	
-	public Feature createFreature(Long productId) {
+	public Feature createFreature(Long productId, User user) {
 		
 		Feature feature = new Feature();
 		
@@ -27,9 +28,13 @@ public class FeatureService {
 		
 		if(productOpt.isPresent()) {
 			Product product = productOpt.get();
+			//populate both sides of the relationship.
 			feature.setProduct(product);
 			product.getFeatures().add(feature);
+			feature.setStatus("Pending Review");
 			
+			feature.setUser(user);
+			user.getFeatures().add(feature);
 			return featureRepo.save(feature);
 		}
 

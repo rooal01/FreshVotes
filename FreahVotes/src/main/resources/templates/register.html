@@ -18,6 +18,7 @@
 <title>FreshVotes Register</title>
 </head>
 <body>
+<div th:replace="fragments/header :: navbar"></div>
 <!--  This is all bootstrap to make the form responsive. Note the row column approach -->
 <div class="container">
 	<div class="card"  style="margin-top: 1.56em;">
@@ -33,27 +34,27 @@
 						-->
 						<label for="name" class="col-12 col-lg-2 col-form-label">Name:</label>
 						<div class="col-12 col-lg-10"> 
-						<input type="text" class="form-control" th:field="${user.name}"/>
+						<input required type="text" class="form-control" th:field="${user.name}"/>
 						</div>
 						</div>
 						
 						<div class="form-group row">
 						<label for="username" class="col-12 col-lg-2 col-form-label">Email Address:</label> 
 						<div class="col-12 col-lg-10">
-						<input type="text" class="form-control" th:field="${user.username}"/>
+						<input required  type="email" class="form-control" th:field="${user.username}"/>
 						</div>
 						</div>
 						
 						<div class="form-group row">
 						<label for="password" class="col-12 col-lg-2 col-form-label">Password:</label> 
 						<div class="col-12 col-lg-10"> 
-						<input type="password" class="form-control" th:field="${user.password}"/>
+						<input required  type="password" class="form-control" th:field="${user.password}"/>
 						</div>
 						</div>
 						<div class="form-group row">
 						<label for="confirmPassword" class="col-12 col-lg-2 col-form-label">ConfirmPassword:</label>
 						<div class="col-12 col-lg-10">
-						<input type="password" class="form-control" id="confirmPassword"/>
+						<input required  type="password" class="form-control" id="confirmPassword"/>
 						</div>
 						</div>
 						

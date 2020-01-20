@@ -9,28 +9,36 @@
 <title th:text="${product.name}"> </title>
 </head>
 <body>
-
+		<div th:replace="fragments/header :: navbar"></div>
 <!--  So do not render this div if the product is null. not sure its needed -->
 	<div class="container" th:if="${product != null}">
-		<div th:replace="fragments/header :: navbar"></div>
+
 			<h1 th:text="${product.name}"></h1>
 			
-			<div class="jumbotron">
-			<div th:if="${product.features != null}">
-				<div class="row" style="margin-top: -2em;">
-					<div class="col">
-					<h2>Product Features</h2>
-					</div>
-				</div>
-			
-			<div class="row" th:each="feature : ${product.features}">
-				<div class="col">
-			<!-- here we use tleaf to create a dynamic href passing in the product id -->
-				<a th:href="@{/products/{productId}/features/{featureId}(productId=${product.id},featureId=${feature.id})}"  th:text="${feature.title}"></a>
-				</div>
+		<div th:if="${product.features != null}" class="card" th:each="feature : ${product.features}" style="margin: 1em 0em">
+			<div class="card-body">
+			<h3 class="card-title" th:text="${feature.title}">Feature Title</h3>
+			<a th:href="@{/products/{productId}/features/{featureId}(productId=${product.id},featureId=${feature.id})}"  class="btn btn-info" >Edit</a>
 			</div>
-		   </div>
+		
 		</div>
+			
+<!-- 			<div class="jumbotron"> -->
+<!-- 			<div th:if="${product.features != null}"> -->
+<!-- 				<div class="row" style="margin-top: -2em;"> -->
+<!-- 					<div class="col"> -->
+<!-- 					<h2>Product Features</h2> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			
+<!-- 			<div class="row" th:each="feature : ${product.features}"> -->
+<!-- 				<div class="col"> -->
+<!-- here we use tleaf to create a dynamic href passing in the product id -->
+<!-- 				<a th:href="@{/products/{productId}/features/{featureId}(productId=${product.id},featureId=${feature.id})}"  th:text="${feature.title}"></a> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		   </div> -->
+<!-- 		</div> -->
 		
 			<form th:action="@{/products/{productId}/features(productId=${product.id})}" method="POST">
 
