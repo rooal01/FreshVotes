@@ -30,6 +30,7 @@
 								<input type="hidden" th:field="${feature.id}">
 								<input type="hidden" th:field="${feature.product}">
 								<input type="hidden" th:field="${feature.status}">
+
 						<div class="form-group row">
 						<!--  the lg is for large screen, there are others the total columns used for the row schould be 12
 						so for a large screen it will use a column size of 2 for the label and 10 for the input
@@ -56,20 +57,109 @@
 						</span>
 					</form>
 					
-				<div class="card"  style="margin-top: 1.56em;">
-								<div class="card-header">
-						<div class="row" >
+				<div class="row"  style="margin-top: 1.56em;">
 							<div class="col-8">
-								<h2>Comments</h2>
+								<h2>Feature Comments</h2>
 							</div>
 						</div>
-		
+						
+			<form th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="POST">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!-- 				for some reason if I set the below the comment.id gets populated  -->
+<!-- 				and the message overwrites the previous message. very strange.  -->
+<!-- 				need to investigate why this might happen. Its like the comment id gets set to the feature ID-->
+			
+<!-- 				<input type="hidden" th:field="${feature.id}"> -->
+<!-- 				<input type="hidden" th:field="${feature.product}"> -->
+<!-- 				<input type="hidden" th:field="${feature.status}"> -->
+<!-- 				<input type="hidden" th:field="${feature.comments}"> -->
+				<input type="hidden" name="parentcomment">
+			<div class="card-body">
+					<div class="form-group" style="margin: 1em 0em">
+						<label for="addnewcomment">leave comment below</label>
+						<textarea class="form-control" id="addnewcomment" th:field="${newcomment.text}" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"></textarea>
+					</div>
 				</div>
-				
-				</div>
+				<span th:if="${user.id == feature.user.id}">
+				<button type="submit" class="btn btn-primary float-right btn-lg" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}">Submit/Update Comment</button>
+				</span>		
+			</form>
+			
+			<div class="card-body">
+					<div th:each="nextcomment : ${comments}" style="margin: 1em 0em">
+					<div class="form-group row">
+						<div class="col-12 col-lg-10">
+							<textarea class="form-control" th:text="|${nextcomment.user.username} -- Posted: ${nextcomment.createDate}: ${nextcomment.text}|" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}">comment</textarea>
+							 <span>
+                        <a class="float-right" role="button" data-toggle="collapse" th:href="|#comment${nextcomment.id}|" aria-expanded="false" aria-controls="collapseExample">reply</a>
+                      </span>
+              <div class="collapse" th:id="|comment${nextcomment.id}|">
+               
+               <form th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="POST">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--  				<input type="hidden" th:field="${feature.id}"> -->
+<!--  				<input type="hidden" th:field="${feature.product}"> -->
+<!--  				<input type="hidden" th:field="${feature.status}"> -->
+<!-- 					<input type="hidden" th:field="${newcomment.id}"> -->
+				<input type="hidden" name="parentcomment" th:value="${nextcomment.id}">
+                  <div class="form-group" style="margin-left: 2em;">
+                    <label th:for="|comment${nextcomment.id}|">Your Comment</label>
+                    <textarea th:id="|comment${nextcomment.id}|" name="comment" th:field="${newcomment.text}" class="form-control" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary float-right btn-lg">Submit</button>
+                </form>
+              </div>
+						</div>
+						</div>
+					
+					
+<!-- 					//Now we check if there is a level 1 comment -->
+		<div th:if="${nextcomment.childcomments != null}" th:each="subcomment : ${nextcomment.childcomments}">
+		<div class="form-group row">
+					
+						<div class="col-12 col-lg-10" style="margin-left: 2em;">
+							<textarea class="form-control" th:text="|${subcomment.user.username} -- Posted: ${subcomment.createDate}: ${subcomment.text}|" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}">comment</textarea>
+							 <span>
+                        <a class="float-right" role="button" data-toggle="collapse" th:href="|#comment${subcomment.id}|" aria-expanded="false" aria-controls="collapseExample">reply</a>
+                      </span>
+              <div class="collapse" th:id="|comment${subcomment.id}|">
+               
+               <form th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="POST">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" name="parentcomment" th:value="${subcomment.id}">
+                  <div class="form-group" style="margin-left: 2em;">
+                    <label th:for="|comment${subcomment.id}|">Your Comment</label>
+                    <textarea th:id="|comment${subcomment.id}|" name="comment" th:field="${newcomment.text}" class="form-control" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary float-right btn-lg">Submit</button>
+                </form>
+              </div>
+						</div>
+	</div>
+	<!-- 				second level check end -->
+						
+<!-- 						Start of level 3 --> 
+<div th:if="${subcomment.childcomments != null}" class="form-group row" th:each="subcomment2 : ${subcomment.childcomments}" style="margin: 1em 0em">
+					
+						<div class="col-12 col-lg-10" style="margin-left: 4em;">
+							<textarea class="form-control" th:text="|${subcomment2.user.username} -- Posted: ${subcomment2.createDate}: ${subcomment2.text} from child loop 2|" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}">comment</textarea>
+<!--  No reply at this level --> 
+						</div>
+						
+					</div> 
+<!-- 					end of level 3 -->
+					
+
+	</div>
+
+
+		</div>
+		 
+						
 					
 		</div>
 	</div>
+</div>
 </div>
 </body>
 </html>

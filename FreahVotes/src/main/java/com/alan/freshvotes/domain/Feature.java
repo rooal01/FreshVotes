@@ -1,12 +1,26 @@
 package com.alan.freshvotes.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Feature {
 	
 
@@ -16,7 +30,8 @@ public class Feature {
 	private String status;
 	private Product product;
 	private User user;
-	
+//	private Set<Comment> comments = new HashSet<>();
+	private List<Comment> comments = new ArrayList<Comment>();
 	
 	//This means that a feature maps to only one product, byt a product can have many features. On the product entity side this will be a OneToMany setting and the product side will control the cascade setting, what happens if the product is removed.
 	@ManyToOne
@@ -61,6 +76,16 @@ public class Feature {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	//If feature is deleted we also delete all comments attached to it
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="feature")
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	
 	
 
 }
