@@ -29,7 +29,13 @@ public class DashboardController {
 	@RequestMapping(value="/dashboard", method=RequestMethod.GET)
 	public String dashboard(@AuthenticationPrincipal User user,ModelMap model) {
 		
-		List<Product> products = productRepo.findByUser(user);
+
+		//List<Product> products = productRepo.findByUser(user);
+		//Lets only show published ones and ones the user owns
+		//Next we need to protect products not owned by the user on the front and backend.
+		List<Product> products = productRepo.findAllByPublishedOrUser(true, user);
+		
+	
 		model.put("products",  products);
 		
 		return "/dashboard";

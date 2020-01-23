@@ -22,6 +22,8 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	Optional<Product> findByIdWithUser(@Param("id") Long id);
 	//Creating our own method to get products by user
 	List<Product> findByUser(User user);
+	List<Product> findAllByPublished(Boolean published);
+	List<Product> findAllByPublishedOrUser(Boolean published, User user);
 	
 	Optional<Product> findByName(String name);
 	
