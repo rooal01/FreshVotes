@@ -1,6 +1,7 @@
 package com.alan.freshvotes.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -111,6 +112,9 @@ public List<Comment> removeDuplicates(List<Comment> comments){
 		
 	
 	}
+	
+	//reverse the list so we always have the latest message first.
+	Collections.reverse(newcommentlist);
 	return newcommentlist;
 }
 }
